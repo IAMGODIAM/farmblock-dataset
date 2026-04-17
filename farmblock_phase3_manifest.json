@@ -1,0 +1,48 @@
+{
+  "dataset": "FarmBlock Food Distress Index \u2014 Phase 3 (Full Nation)",
+  "version": "v3.0-beta",
+  "published_by": "E5 Enclave Incorporated",
+  "ein": "99-3822441",
+  "license": "CC0 1.0 Universal \u2014 Public Domain",
+  "dag": "farmblock-phase3-complete-2026-0417",
+  "generated": "2026-04-17T16:12:04.391890Z",
+  "coverage": {
+    "phase": 3,
+    "census_jurisdictions": 52,
+    "cdc_jurisdictions": 50,
+    "scout_cache_records": 104,
+    "estimated_counties": 3144,
+    "data_layers": [
+      "BLS LAU 2025",
+      "Census ACS 5-Year 2022",
+      "CDC PLACES 2023"
+    ],
+    "cdc_gaps": [
+      "KY (21)",
+      "PA (42)"
+    ],
+    "notes": "KY and PA CDC data returned NO_DATA from provider \u2014 will resolve in Phase 3.1 patch"
+  },
+  "phase2_anchor": {
+    "dag": "farmblock-phase2-complete-2026-0417",
+    "states": 17,
+    "counties": 1200
+  },
+  "top_new_signals_phase3": [
+    "SC Allendale County: 71.9% Black, 27.2% poverty, 50.1% hypertension, 46.7% obesity \u2014 Deep South signal extends into SC",
+    "AZ Apache County: 32.5% poverty, 49.8% no internet \u2014 Native American county with near-complete digital exclusion",
+    "OK Adair County: 42% no internet, 22.3% poverty, 46.2% obesity \u2014 rural OK emerging as distress corridor",
+    "WV Boone County: 22% poverty, 48.1% hypertension, 46.7% obesity, 22.4% mental health \u2014 Appalachian collapse signal",
+    "GA Atkinson County: 27.5% poverty, 42.5% hypertension, 44% obesity \u2014 Georgia's rural Black Belt activating",
+    "SD Bennett County: 29.6% poverty, 27.3% no internet \u2014 Lakota Nation poverty cluster"
+  ],
+  "methodology": {
+    "fdi_score": "Composite 0-100. poverty(25%) + health_burden(25%) + digital_exclusion(20%) + vacancy(15%) + Black_pct(15%)",
+    "sources": [
+      "Census ACS 5-Year 2022",
+      "CDC PLACES 2023",
+      "BLS LAU 2025"
+    ]
+  },
+  "next": "Phase 3.1 \u2014 patch KY/PA CDC gaps + run FDI scoring on all 3,144 counties + publish ranked national map"
+}
