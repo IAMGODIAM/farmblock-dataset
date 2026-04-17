@@ -1,0 +1,59 @@
+{
+  "name": "FarmBlock Distress Index (FDI)",
+  "version": "2.0",
+  "produced_by": "E5 Enclave Incorporated",
+  "license": "CC0 1.0 Universal",
+  "date": "2026-04-17",
+  "tracts_analyzed": 12426,
+  "cities_covered": 53,
+  "dimensions": {
+    "dim_poverty": {
+      "label": "Poverty rate",
+      "source": "Census ACS B17001",
+      "weight": "1/6"
+    },
+    "dim_income": {
+      "label": "Median income (inverted)",
+      "source": "Census ACS B19013",
+      "weight": "1/6"
+    },
+    "dim_pct_black": {
+      "label": "% Black/African American",
+      "source": "Census ACS B02001",
+      "weight": "1/6"
+    },
+    "dim_no_internet": {
+      "label": "% without internet",
+      "source": "Census ACS B28002",
+      "weight": "1/6"
+    },
+    "dim_vacancy": {
+      "label": "Housing vacancy rate",
+      "source": "Census ACS B25002",
+      "weight": "1/6"
+    },
+    "dim_health_prox": {
+      "label": "Health burden proxy (poverty)",
+      "note": "CDC PLACES not available this run; poverty used as validated proxy",
+      "weight": "1/6"
+    }
+  },
+  "normalization": "min-max 0-1 per dimension across all queried tracts",
+  "final_score": "mean of 6 normalized dimensions \u00d7 100 (range 0-100)",
+  "missing_data_policy": "median imputation if <5% missing per variable; all rates <2.5% this run",
+  "limitations": [
+    "Census ACS 2023 5-year rolling estimates \u2014 not point-in-time",
+    "CDC PLACES health data not available in this run \u2014 poverty used as proxy; to be added Phase 2",
+    "Equal weighting is an explicit assumption; sensitivity analysis with alternate weights recommended",
+    "FDI measures correlation of structural conditions, not causation",
+    "Analysis limited to 53 counties; national expansion (Option C) is Phase 2"
+  ],
+  "sources": [
+    {
+      "name": "US Census Bureau ACS 5-Year 2023",
+      "url": "https://api.census.gov/data/2023/acs/acs5",
+      "variables": "B17001, B19013, B02001, B28002, B25002, B01003"
+    }
+  ],
+  "reproducibility": "All code CC0. Run: python3 farmblock_pipeline_v2.py with CENSUS_API_KEY env var set."
+}
