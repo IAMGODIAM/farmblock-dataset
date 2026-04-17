@@ -1,95 +1,89 @@
-# FarmBlock Distress Index (FDI) — v2.0
-**Produced by:** E5 Enclave Incorporated  
-**License:** CC0 1.0 Universal (Public Domain)  
-**Date:** April 17, 2026  
-**Version:** 2.0  
+# FarmBlock Food Distress Index — Phase 2
+**Published by:** E5 Enclave Incorporated | EIN: 99-3822441  
+**License:** CC0 1.0 Universal — Public Domain  
+**Version:** v2.0 | **DAG:** farmblock-phase2-complete-2026-0417  
+**Website:** iamgodiam.net  
 
 ---
 
 ## What This Is
 
-The FarmBlock Distress Index (FDI) is a composite measure of structural food insecurity and community disinvestment across American urban census tracts. It is designed to identify communities where multiple converging conditions — poverty, food access deficit, economic exclusion, infrastructure absence — create the conditions that E5 Enclave's FarmBlock program is built to address.
+The FarmBlock Food Distress Index (FDI) is the first county-resolution composite dataset 
+combining economic, demographic, and public health data to identify communities most 
+vulnerable to food apartheid and structural disinvestment.
 
-This dataset covers **12,426 census tracts** across **53 counties** in **cities with documented histories of structural disinvestment**. It is the foundation for E5 Enclave's national expansion research (Option C — all 74,000 US tracts — is in progress).
-
----
-
-## The FDI Score (0–100)
-
-Each tract receives a score from 0 (low distress) to 100 (highest distress), computed as the equal-weighted mean of 6 normalized dimensions:
-
-| Dimension | Variable | Source |
-|-----------|----------|--------|
-| Poverty rate | % below federal poverty line | Census ACS 2023 B17001 |
-| Income deficit | Median household income (inverted) | Census ACS 2023 B19013 |
-| Demographic context | % Black / African American | Census ACS 2023 B02001 |
-| Digital exclusion | % without internet access | Census ACS 2023 B28002 |
-| Housing vacancy | % vacant housing units | Census ACS 2023 B25002 |
-| Health burden proxy | Poverty rate (proxy for CDC PLACES — Phase 2 will add direct CDC data) | Census ACS 2023 |
-
-**Normalization:** min-max 0–1 across all 12,426 tracts in this dataset.  
-**Weighting:** Equal (1/6 each). This is an explicit assumption; sensitivity analysis with alternate weightings is recommended for peer review.
+Phase 2 covers **17 target states** with ~1,200 counties across three data layers.
 
 ---
 
-## Key Findings (v2.0)
+## Data Sources
 
-- **12,426 tracts** analyzed across 53 counties
-- **45.6 million people** in covered communities  
-- **32 high-distress tracts** (FDI ≥ 60) identified  
-- **Top cities by average FDI:** Albany GA (42.9), Selma AL (42.1), Pine Bluff AR (39.1), Jackson MS (39.0), Macon GA (37.7)
-- The pattern is consistent: high FDI tracts share poverty rates 60–100%, median incomes under $20K, and Black population concentrations of 70–100%
-- This is not a coincidence. It is a documented structural pattern.
-
----
-
-## Data Files
-
-```
-/raw/
-  census_acs_2023_raw.json      — Raw Census API response (SHA-256 documented in validation report)
-/processed/
-  farmblock_tracts_v2.csv       — 12,426 tracts with FDI scores + all variables
-  farmblock_cities_v2.csv       — 53-city aggregates (mean/max FDI, population, poverty)
-/methodology/
-  fdi_methodology_v2.json       — Full scoring specification
-  validation_report.json        — Missing data log, audit trail, pipeline log
-```
+| Layer | Source | Vintage |
+|-------|--------|---------|
+| Economic | BLS Local Area Unemployment Statistics | 2025 |
+| Demographic | US Census Bureau ACS 5-Year Estimates | 2022 |
+| Health | CDC PLACES County Data | 2023 |
 
 ---
 
-## Limitations
+## FDI Score Methodology
 
-1. **USDA FARA vintage 2019** — food access conditions may have changed
-2. **Census ACS 5-year rolling estimates** — not point-in-time measurements
-3. **Health dimension uses poverty proxy** — direct CDC PLACES data to be added in v3.0
-4. **Equal weighting is an assumption** — not empirically derived
-5. **FDI is a correlation index** — it does not establish causation
-6. **Coverage limited to 53 counties** — national expansion (all 74K tracts) is Phase 2
+Composite score 0–100. Higher = more distressed.
+
+| Dimension | Weight | Metric |
+|-----------|--------|--------|
+| Poverty | 25% | ACS poverty rate |
+| Health Burden | 25% | CDC diabetes + hypertension + obesity (normalized) |
+| Digital Exclusion | 20% | % households no internet |
+| Housing Vacancy | 15% | ACS vacancy rate |
+| Black % (exposure proxy) | 15% | ACS % Black population |
 
 ---
 
-## Reproducibility
+## Top 10 Most Distressed Counties (Phase 2)
 
-```bash
-export CENSUS_API_KEY=your_key_here
-python3 farmblock_pipeline_v2.py
-```
+| Rank | County | State | FDI Score | Poverty | Black% | HTN% |
+|------|--------|-------|-----------|---------|--------|------|
+| 1 | Humphreys | MS | 87.25 | 35.0% | 80.0% | 51.7% |
+| 2 | Claiborne | MS | 85.26 | 35.0% | 83.0% | 50.0% |
+| 3 | Sunflower | MS | 78.34 | 32.0% | 72.0% | 48.0% |
+| 4 | Alexander | IL | 77.38 | 21.4% | 33.2% | 47.9% |
+| 5 | Amite | MS | 70.86 | 27.1% | 40.2% | 43.2% |
+| 6 | Hempstead | LA | 68.99 | 28.0% | 45.0% | 46.2% |
+| 7 | Adams | MS | 68.31 | 27.2% | 53.4% | 51.7% |
+| 8 | Barbour | AL | 65.68 | 24.2% | 46.9% | 46.4% |
+| 9 | Ashley | AR | 59.55 | 23.3% | 24.8% | 41.4% |
+| 10 | Gadsden | FL | 57.98 | 22.0% | 55.0% | 40.0% |
 
-All code is CC0. All source data is from US government open data APIs.  
-Results are deterministic given the same source data vintage.
+---
+
+## Key Findings
+
+- **Humphreys County, MS** (FDI 87.2): 80% Black, 35% poverty, 51.7% hypertension — highest composite distress
+- **Alexander County, IL** (FDI 77.4): 38% no internet + 42% vacant housing = structural collapse signature  
+- **The Bronx, NY** (FDI 56.0): Urban Black poverty carries comparable health burden to rural Deep South
+- **State data masks county reality**: Alabama = 2.7% state unemployment, but Barbour County = 24.2% poverty
+- **Hypertension is the dominant signal**: high-distress counties average 46.9% vs. 32% national baseline
+
+> *"In Claiborne County, Mississippi — 83% Black, 35% poverty — the hypertension rate is 50%.  
+> That is not a medical problem. That is a structural problem. FarmBlock maps it. FarmBlock targets it."*
+
+---
+
+## Files
+
+- `farmblock_fdi_phase2.json` — Full scored dataset with metadata
+- `farmblock_fdi_phase2.csv` — Flat CSV for analysis
+
+---
+
+## Phase 3
+
+Full nation (51 jurisdictions, 3,144 counties) — in progress.
 
 ---
 
 ## Citation
 
-> E5 Enclave Incorporated. (2026). *FarmBlock Distress Index v2.0: Structural Food Insecurity Across American Urban Census Tracts.* CC0 1.0 Universal. GitHub: IAMGODIAM/farmblock-dataset
-
----
-
-## About E5 Enclave Incorporated
-
-E5 Enclave Incorporated (EIN: 99-3822441) is a 501(c)(3) nonprofit building permanent community infrastructure in American cities where disinvestment has been policy, not accident. FarmBlock is our flagship program — integrating urban agriculture, IoT sensor networks, and blockchain supply chain transparency into communities identified by this dataset.
-
-**Contact:** IAMGODIAM@e5enclave.com | iamgodiam.net  
-**SAM.gov:** UEI H8NGXEYE2HH8 | CAGE 07E88
+> E5 Enclave Incorporated. (2026). *FarmBlock Food Distress Index, Phase 2* (v2.0) [Dataset].  
+> CC0 1.0 Universal. https://github.com/IAMGODIAM/farmblock-dataset
