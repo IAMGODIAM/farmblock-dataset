@@ -43,7 +43,7 @@
   "missing_data_policy": "median imputation if <5% missing per variable; all rates <2.5% this run",
   "limitations": [
     "Census ACS 2023 5-year rolling estimates \u2014 not point-in-time",
-    "CDC PLACES health data not available in this run \u2014 poverty used as proxy; to be added Phase 2",
+    "CDC PLACES 2023 \u2014 health data is DIRECT in Phase 2 county formula (not proxied). Phase 1 tract run used poverty proxy; Phase 2 corrected. See farmblock_fdi_phase2.json for confirmed Phase 2 health values.",
     "Equal weighting is an explicit assumption; sensitivity analysis with alternate weights recommended",
     "FDI measures correlation of structural conditions, not causation",
     "Analysis limited to 53 counties; national expansion (Option C) is Phase 2"
@@ -55,5 +55,6 @@
       "variables": "B17001, B19013, B02001, B28002, B25002, B01003"
     }
   ],
-  "reproducibility": "All code CC0. Run: python3 farmblock_pipeline_v2.py with CENSUS_API_KEY env var set."
+  "reproducibility": "All code CC0. Run: python3 farmblock_pipeline_v2.py with CENSUS_API_KEY env var set.",
+  "health_note": "Phase 2 (county level): CDC PLACES 2023 direct values used for diabetes_pct and hypertension_pct. Health proxy was Phase 1 only."
 }
