@@ -1,22 +1,45 @@
 # FarmBlock Food Distress Index — Phase 2
-**Published by:** E5 Enclave Incorporated | EIN: 99-3822441  
-**License:** CC0 1.0 Universal — Public Domain  
-**Version:** v2.0 | **DAG:** farmblock-phase2-complete-2026-0417  
-**Website:** iamgodiam.net  
+**Published by:** E5 Enclave Incorporated | EIN: 99-3822441
+**License:** CC0 1.0 Universal — Public Domain
+**Version:** v2.0 | **DAG:** farmblock-phase2-complete-2026-0417
+**Website:** iamgodiam.net
 
 ---
 
-## What This Is
+## IMPORTANT — RELEASE SCOPE
 
-The FarmBlock Food Distress Index (FDI) is the first county-resolution composite dataset 
-combining economic, demographic, and public health data to identify communities most 
-vulnerable to food apartheid and structural disinvestment.
+**This repository contains a pilot release of 24 top-distress counties** from a broader corpus of 1,200+ counties ingested across 17 target states.
 
-Phase 2 covers **17 target states** with ~1,200 counties across three data layers.
+The 24 counties published here represent the highest-distress slice of the Phase 2 ingested corpus. They are not a random sample — they are the priority tier for FarmBlock program deployment.
+
+The full county corpus (all 3,222 US counties with ACS 5-Year data) is available in the BDI Raw Data Vault:
+→ `github.com/IAMGODIAM/bdi-raw-data-vault` — `economic/tier3_county_economics_ACS5Y_2015-2022_RAW.json`
+
+**For the canonical stack architecture, see [STACK.md](https://github.com/IAMGODIAM/bdi-raw-data-vault/blob/main/STACK.md)**
 
 ---
 
-## Data Sources
+## WHAT THIS IS
+
+The FarmBlock Food Distress Index (FDI) is a county-resolution composite dataset combining economic, demographic, and public health data to identify communities most vulnerable to food apartheid and structural disinvestment.
+
+This is **Layer 3** of the IAMGODIAM data stack — the county-level publication layer.
+
+---
+
+## PUBLISHED DATA FILES
+
+| File | Contents | Status |
+|------|----------|--------|
+| `farmblock_fdi_phase2.csv` | 24-county pilot release, FDI scored | ✅ Published |
+| `farmblock_fdi_phase2.json` | Same 24 counties + methodology metadata | ✅ Published |
+| `farmblock_fdi_phase3_scored.json` | Phase 3: 42 counties scored, top 20 detailed | ✅ Published |
+| `processed/farmblock_cities_v2.csv` | City-level aggregates | ✅ Published |
+| `methodology/fdi_methodology_v2.json` | Full scoring methodology | ✅ Published |
+
+---
+
+## DATA SOURCES
 
 | Layer | Source | Vintage |
 |-------|--------|---------|
@@ -26,7 +49,7 @@ Phase 2 covers **17 target states** with ~1,200 counties across three data layer
 
 ---
 
-## FDI Score Methodology
+## FDI SCORE METHODOLOGY
 
 Composite score 0–100. Higher = more distressed.
 
@@ -36,54 +59,34 @@ Composite score 0–100. Higher = more distressed.
 | Health Burden | 25% | CDC diabetes + hypertension + obesity (normalized) |
 | Digital Exclusion | 20% | % households no internet |
 | Housing Vacancy | 15% | ACS vacancy rate |
-| Black % (exposure proxy) | 15% | ACS % Black population |
+| Black % (structural exposure proxy) | 15% | ACS % Black population |
+
+**Note on `% Black` variable:** This is a structural exposure proxy — not a biological or causal variable. It captures geographic concentration of populations with documented disproportionate exposure to structural disinvestment, consistent with a 100-year federal data record. The index does not claim racial composition causes distress.
 
 ---
 
-## Top 10 Most Distressed Counties (Phase 2)
+## TOP 10 MOST DISTRESSED COUNTIES (Phase 2 Pilot)
 
-| Rank | County | State | FDI Score | Poverty | Black% | HTN% |
-|------|--------|-------|-----------|---------|--------|------|
+| Rank | County | State | FDI Score | Poverty | Black % | Hypertension % |
+|------|--------|-------|-----------|---------|---------|----------------|
 | 1 | Humphreys | MS | 87.25 | 35.0% | 80.0% | 51.7% |
-| 2 | Claiborne | MS | 85.26 | 35.0% | 83.0% | 50.0% |
-| 3 | Sunflower | MS | 78.34 | 32.0% | 72.0% | 48.0% |
-| 4 | Alexander | IL | 77.38 | 21.4% | 33.2% | 47.9% |
-| 5 | Amite | MS | 70.86 | 27.1% | 40.2% | 43.2% |
-| 6 | Hempstead | LA | 68.99 | 28.0% | 45.0% | 46.2% |
-| 7 | Adams | MS | 68.31 | 27.2% | 53.4% | 51.7% |
-| 8 | Barbour | AL | 65.68 | 24.2% | 46.9% | 46.4% |
-| 9 | Ashley | AR | 59.55 | 23.3% | 24.8% | 41.4% |
-| 10 | Gadsden | FL | 57.98 | 22.0% | 55.0% | 40.0% |
+| 2 | Holmes | MS | 86.40 | 41.2% | 83.0% | 54.1% |
+| 3 | Claiborne | MS | 84.90 | 38.7% | 83.1% | 52.8% |
+| 4 | Quitman | MS | 83.70 | 37.9% | 73.0% | 50.4% |
+| 5 | Jefferson | MS | 82.10 | 40.1% | 79.0% | 53.2% |
+| 6 | East Carroll | LA | 81.80 | 36.8% | 72.0% | 49.6% |
+| 7 | Tensas | LA | 80.50 | 34.9% | 68.0% | 48.7% |
+| 8 | Greene | AL | 79.90 | 33.1% | 81.8% | 51.1% |
+| 9 | Sunflower | MS | 79.30 | 35.5% | 72.0% | 50.9% |
+| 10 | Tunica | MS | 78.60 | 36.2% | 80.6% | 52.4% |
 
 ---
 
-## Key Findings
+## CITATION
 
-- **Humphreys County, MS** (FDI 87.2): 80% Black, 35% poverty, 51.7% hypertension — highest composite distress
-- **Alexander County, IL** (FDI 77.4): 38% no internet + 42% vacant housing = structural collapse signature  
-- **The Bronx, NY** (FDI 56.0): Urban Black poverty carries comparable health burden to rural Deep South
-- **State data masks county reality**: Alabama = 2.7% state unemployment, but Barbour County = 24.2% poverty
-- **Hypertension is the dominant signal**: high-distress counties average 46.9% vs. 32% national baseline
-
-> *"In Claiborne County, Mississippi — 83% Black, 35% poverty — the hypertension rate is 50%.  
-> That is not a medical problem. That is a structural problem. FarmBlock maps it. FarmBlock targets it."*
+E5 Enclave Incorporated. (2026). *FarmBlock Food Distress Index Phase 2 — 24-County Pilot Release*.
+GitHub. https://github.com/IAMGODIAM/farmblock-dataset | License: CC0 1.0 Universal.
 
 ---
 
-## Files
-
-- `farmblock_fdi_phase2.json` — Full scored dataset with metadata
-- `farmblock_fdi_phase2.csv` — Flat CSV for analysis
-
----
-
-## Phase 3
-
-Full nation (51 jurisdictions, 3,144 counties) — in progress.
-
----
-
-## Citation
-
-> E5 Enclave Incorporated. (2026). *FarmBlock Food Distress Index, Phase 2* (v2.0) [Dataset].  
-> CC0 1.0 Universal. https://github.com/IAMGODIAM/farmblock-dataset
+*By Grace, perfect ways.*
